@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="sign.css">
+</head>
+<body>
+   
+    <form >
+        
+        <h1>Sign Up</h1>
+        <input id="username" type="text" placeholder="Username" required onfocus="this.value=''">
+        <input id="password" type="password" placeholder="Password" required onfocus="this.value=''">
+        <select name="country" id="country" title="Currency Code">
+            <option value="COUNTRY" id="CURRENCY">Currency Code</option>
+            <option value="AUD">AUD</option>
+            <option value="BGN">BGN</option>
+            <option value="CAD">CAD</option>
+            <option value="CNY">CNY</option>
+            <option value="EUR">EUR</option>
+            <option value="HKD">HKD</option>
+            <option value="ILS">ILS</option>
+            <option value="MYR">MYR</option>
+            <option value="PHP">PHP</option>
+            <option value="USD">USD</option>
+            <option value="ZAR">ZAR</option>
+        </select>
+        <p id="errorMessage"></p>
+        <input type="submit" id="submit-btn" value="SUBMIT">
+    </form>
+    <script src="sign.js"></script>
+</body>
+</html>

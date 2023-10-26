@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Currency Converter</title>
+    <link rel="icon" type="image/x-icon" href="./images/favicon.ico" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="container">
+      <div class="holder">
+        <div class="signOutBtn-holder">
+          <a class="buttn">
+            <button id="signOut-btn" style="--clr: #1e9bff">
+              <span>Log Out</span> <i></i>
+            </button>
+          </a>
+        </div>
+        <h1 class="title" data-text="Currency Converter...">
+          <span>C</span>urrency <span>Co</span>nverter...
+        </h1>
+        <h2 id='username'></h2>
+        <div class="exchange">
+          
+            <div class="inputSelect-holder">
+              <input title="Currency" type="text" name="" id="currency-vl" placeholder=""/>
+            <select name="country" id="country" title="country">
+              <option value="CURRENCY" id="CURRENCY">Currency Code</option>
+              <option value="AUD">AUD</option>
+              <option value="BGN">BGN</option>
+              <option value="CAD">CAD</option>
+              <option value="CNY">CNY</option>
+              <option value="EUR">EUR</option>
+              <option value="HKD">HKD</option>
+              <option value="ILS">ILS</option>
+              <option value="MYR">MYR</option>
+              <option value="PHP">PHP</option>
+              <option value="USD">USD</option>
+              <option value="ZAR">ZAR</option>
+          </select>
+            </div>
+          
+          <br />
+          <a class="buttn">
+            <button id="btn" style="--clr: #1e9bff" onclick="showData()">
+              <span>Convert</span> <i></i>
+            </button>
+          </a>
+          <a class="buttn">
+            <button id="btn1" style="--clr: #1e9bff">
+              <span>clear</span> <i></i>
+            </button>
+          </a>
+          <!-- <p id="AUD"></p>
+          <p id="BGN"></p>
+          <p id="CAD"></p>
+          <p id="EUR"></p>
+          <p id="USD"></p>
+          <p id="HKD"></p>
+          <p id="ILS"></p>
+          <p id="MYR"></p>
+          <p id="PHP"></p> -->
+          <div id="paraholder">
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="currency.js"></script>
+  </body>
+</html>
