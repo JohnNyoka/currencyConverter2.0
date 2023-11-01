@@ -5,12 +5,17 @@ let btn1 = document.getElementById("btn1");
 let para = document.getElementById("para")
 let username = document.getElementById("username")
 let signOutBtn = document.getElementById("signOut-btn")
+let saveBtn = document.getElementById("saveBtn")
+let savedItems = document.getElementById("savedItems")
+let historyList = document.getElementById("history-list");
+let historyContainer = document.getElementById("history-container")
+
 
 let localAuthUser = localStorage.getItem("authUser")
 
-const authUser = localAuthUser ? JSON.parse(localAuthUser) : null
+let authUser = localAuthUser ? JSON.parse(localAuthUser) : null
 
-if (authUser == null){
+if (authUser === null){
   window.location.href = 'logIn.html'
 }
 currencyvl.placeholder = authUser.country
@@ -35,12 +40,16 @@ function getCurrencies(currency) {
 function showData() {
   getCurrencies(country.value || "ZAR").then(() => {
     view.innerHTML = "";
-    for (const key in ratio) {
-      let temp = currencyvl.value * ratio[key];
-      // let itm = document.getElementById(`${key}`);
-      // if(itm) itm.innerHTML = `${key}: ${temp.toFixed(4)}`;
-      let template = `<p>${key}: ${temp.toFixed(2)}</p>`;
-      view.insertAdjacentHTML("beforeend", template);
+    if(currencyvl.value === ""){
+      return
+    }else{
+      for (let key in ratio) {
+        let temp = currencyvl.value * ratio[key];
+        // let itm = document.getElementById(`${key}`);
+        // if(itm) itm.innerHTML = `${key}: ${temp.toFixed(4)}`;
+        let template = `<p>${key}: ${temp.toFixed(2)}</p>`;
+        view.insertAdjacentHTML("beforeend", template);
+      }
     }
   });
 };
@@ -49,7 +58,7 @@ function showData() {
 btn1.addEventListener("click", ()=>{
   currencyvl.value = ""
 
-  const paragraphs = view.querySelectorAll("p");
+  let paragraphs = view.querySelectorAll("p");
 
   paragraphs.forEach((paragraph) => {
     paragraph.innerHTML = "";
@@ -61,3 +70,43 @@ signOutBtn.addEventListener("click", ()=>{
   localStorage.removeItem('authUser');
   window.location.href = "logIn.html";
 })
+
+let history = [];
+
+saveBtn.addEventListener("click", (e)=>{
+  let selectedOption = country.value;
+  if (!history.includes(selectedOption)) {
+    history.push(selectedOption);
+    console.log("history",history)
+    let listItem = document.createElement("li");
+    history.push(listItem);
+    console.log("listItem", listItem)
+    listItem.innerText = selectedOption + " " + currencyvl.value;
+    historyList.appendChild(listItem);
+    localStorage.setItem("history",JSON.stringify(history))
+    saveBtn.value = 'Loading....';
+    fetch("http://localhost:3001/history", {
+      method: "POST",
+      body: JSON.stringify({ country: country.value, currencyvl: currencyvl.value, userId: authUser._id}),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    
+
+}
+})
+
+window.addEventListener("load", ()=>{
+  fetch(`http://localhost:3001/history/${authUser._id}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((response) => {
+    console.log("response", response)
+    response.json().then(() => {
+    })
+  })
+})
+

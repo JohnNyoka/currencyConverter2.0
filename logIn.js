@@ -12,7 +12,7 @@ form.addEventListener("submit", (e) => {
     errors.push("Username required");
   }
 
-  if (password.value.length <= 8) {
+  if (password.value.length < 8) {
     errors.push("Password must be at least 8 characters");
   }
 

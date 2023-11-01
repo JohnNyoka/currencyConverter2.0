@@ -1,3 +1,4 @@
+
 const express = require("express");
 const cors = require("cors");
 
@@ -10,7 +11,14 @@ const dataSchema = new mongoose.Schema({
   password: String,
   country: String,
 });
+
+const historySchema = new mongoose.Schema({
+  userId: String,
+ country: String,
+ currencyvl: String,
+});
 const DataModel = mongoose.model("User", dataSchema);
+const HistoryModel = mongoose.model("history", historySchema);
 
 app.use(cors());
 app.use(express.json());
@@ -18,6 +26,7 @@ app.use(express.json());
 //to create a new user
 app.post("/users", (req, res) => {
   console.log(req.body);
+  console.log("test call");
   const newData = new DataModel(req.body);
   newData
     .save()
@@ -25,6 +34,18 @@ app.post("/users", (req, res) => {
     .catch((err) => console.log(err))
     .then(() => {
       res.status(200).json("user is signed in");
+    });
+});
+
+app.post("/history", (req, res) => {
+  console.log(req.body);
+  const newHistory = new HistoryModel(req.body);
+  newHistory
+    .save()
+    .then(() => console.log("saved to mongo"))
+    .catch((err) => console.log(err))
+    .then(() => {
+      res.status(200).json("history has been saved");
     });
 });
 
@@ -41,6 +62,23 @@ app.post("/auth", (req, res) => {
       res.status(404).json("user not found");
     });
 });
+
+app.get("/history/:id", (req, res) => {
+  let {id} = req.params
+  console.log(req.body);
+  HistoryModel.find({userId:id})
+    .then((history) => {
+        console.log({history})
+      res.status(200).json(history);
+    })
+    .catch((err) => {
+        console.log({err})
+      res.status(404).json("history not found");
+    });
+});
+
+
+
 console.log("connecting to mongo...");
 mongoose
   .connect(

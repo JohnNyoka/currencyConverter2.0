@@ -12,15 +12,15 @@ form.addEventListener("submit", (e) => {
     errors.push("Username required");
   }
 
-  if (password.value.length <= 8) {
+  if (password.value.length < 8) {
     errors.push("Password must be at least 8 characters");
   }
 
   if (errors.length > 0) {
     errorMessage.innerHTML = errors.join(", ");
   } else {
-    console.log(subBtn)
-    subBtn.value = 'Loading....'
+    console.log(subBtn);
+    subBtn.value = 'Loading....';
     fetch("http://localhost:3001/users", {
       method: "POST",
       body: JSON.stringify({ name: username.value, password: password.value, country: country.value}),
