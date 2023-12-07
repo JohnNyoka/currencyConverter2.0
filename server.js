@@ -1,4 +1,3 @@
-
 const express = require("express");
 const cors = require("cors");
 
@@ -14,8 +13,8 @@ const dataSchema = new mongoose.Schema({
 
 const historySchema = new mongoose.Schema({
   userId: String,
- country: String,
- currencyvl: String,
+  country: String,
+  currencyvl: String,
 });
 const DataModel = mongoose.model("User", dataSchema);
 const HistoryModel = mongoose.model("history", historySchema);
@@ -54,30 +53,28 @@ app.post("/auth", (req, res) => {
   console.log(req.body);
   DataModel.findOne({ name: req.body.name, password: req.body.password })
     .then((user) => {
-        console.log({user})
+      console.log({ user });
       res.status(200).json(user);
     })
     .catch((err) => {
-        console.log({err})
+      console.log({ err });
       res.status(404).json("user not found");
     });
 });
 
 app.get("/history/:id", (req, res) => {
-  let {id} = req.params
+  let { id } = req.params;
   console.log(req.body);
-  HistoryModel.find({userId:id})
+  HistoryModel.find({ userId: id })
     .then((history) => {
-        console.log({history})
+      console.log({ history });
       res.status(200).json(history);
     })
     .catch((err) => {
-        console.log({err})
+      console.log({ err });
       res.status(404).json("history not found");
     });
 });
-
-
 
 console.log("connecting to mongo...");
 mongoose
